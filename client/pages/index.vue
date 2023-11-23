@@ -1,8 +1,8 @@
 <template>
   <div>
     <Header />
-    <div class="flex flex-col bg-gray-200 p-0 m-0 overflow-hidden flex justify-center items-center h-screen" @click="checkIn">
-      <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-20 px-14 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+    <div class="flex flex-col bg-gray-200 p-0 m-0 overflow-hidden flex justify-center items-center h-screen">
+      <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-20 px-14 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800" @click="checkIn">
         CHECK IN
       </button>
 
@@ -93,13 +93,13 @@ const inicializarMapa = async (lat, lng) => {
   })
 
   // Info Window
-  // const detailWindow = new google.maps.InfoWindow({
-  //   content: '<h2> Avantti Consultoria</h2>'
-  // })
+  const detailWindow = new google.maps.InfoWindow({
+    content: '<h2> Avantti Consultoria</h2>'
+  })
 
-  // marker.addListener('click', () => {
-  //   detailWindow.open(map, marker)
-  // })
+  marker.addListener('mouseover', () => {
+    detailWindow.open(map, marker)
+  })
 }
 
 const checkIn = async () => await obterLocalizacao()
