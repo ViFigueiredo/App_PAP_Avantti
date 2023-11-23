@@ -5,7 +5,7 @@
         <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo">
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">JNX App</span>
       </a>
-      <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+      <div id="dropMenuBase" class="relative flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
         <button
           id="user-menu-button"
           type="button"
@@ -13,28 +13,22 @@
           aria-expanded="false"
           data-dropdown-toggle="user-dropdown"
           data-dropdown-placement="bottom"
+          @click="showDropdown"
         >
-          <span class="sr-only">Open user menu</span>
-          <img class="w-8 h-8 rounded-full" src="" alt="user photo" @click="showDropdown">
+          <img class="w-8 h-8 rounded-full" src="" alt="user photo">
         </button>
         <!-- Dropdown menu -->
-        <div v-if="dropMenu" id="user-dropdown" class="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
+        <div v-if="dropMenu" id="user-dropdown" class=" absolute top-8 right-0 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
           <div class="px-4 py-3">
             <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
             <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
           </div>
           <ul class="py-2" aria-labelledby="user-menu-button">
             <li>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Configurações</a>
             </li>
             <li>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sair</a>
             </li>
           </ul>
         </div>
@@ -55,7 +49,7 @@
             <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Serviços</a>
           </li>
           <li>
-            <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Suporte</a>
+            <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Dashboard</a>
           </li>
         </ul>
       </div>
