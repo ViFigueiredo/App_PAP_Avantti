@@ -1,5 +1,6 @@
 export const obterLocalizacao = (showCoords, localizacao, erro, erroMensagem, inicializarMapa, apiKey) => {
   showCoords.value = true
+  showFingerprint.value = true
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (posicao) => {
