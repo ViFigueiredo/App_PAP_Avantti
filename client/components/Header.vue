@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-white border-gray-200 dark:bg-gray-900 w-full absolute">
+  <nav class="relative bg-white border-gray-200 dark:bg-gray-900 w-full absolute">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="@/assets/img/jnx_logo.png" class="jnx-logo h-10" alt="">
