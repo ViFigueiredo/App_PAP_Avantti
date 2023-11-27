@@ -53,15 +53,3 @@ const checkIn = async () => {
   await obterLocalizacao(getCoords, showFingerprint, localizacao, erro, erroMensagem, inicializarMapa, apiKey)
 }
 </script>
-
-<style scoped>
-/* #map {
-  height: 400px;
-  width: 500px;
-} */
-
-/* .fingerprint {
-  font-size: 5rem;
-} */
-
-</style>
