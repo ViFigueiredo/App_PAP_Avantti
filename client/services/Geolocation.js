@@ -1,37 +1,33 @@
-export const obterLocalizacao = (showCoords, showFingerprint, localizacao, erro, erroMensagem, inicializarMapa, apiKey) => {
-  showCoords.value = true
-  showFingerprint.value = true
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (posicao) => {
-        localizacao.value = {
-          latitude: posicao.coords.latitude,
-          longitude: posicao.coords.longitude
-        }
-        inicializarMapa(localizacao.value.latitude, localizacao.value.longitude, apiKey)
-      },
-      (erro) => {
-        erroMensagem.value = tratarErro(erro)
-        erro.value = true
+export const getLocation = async () => {
+  try {
+    if (navigator.geolocation) {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+      })
+
+      const location = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
       }
-    )
-  } else {
-    erroMensagem.value = 'Geolocalização não é suportada pelo seu navegador.'
-    erro.value = true
+
+      return { location, err: false, errorMsg: null }
+    }
+  } catch (error) {
+    return { location: null, err: true, errorMsg: tratarErro(error) }
   }
 }
 
-export const tratarErro = (erro) => {
-  switch (erro.code) {
-    case erro.PERMISSION_DENIED:
+export const tratarErro = (error) => {
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
       return 'Permissão para obter a localização foi negada pelo usuário.'
-    case erro.POSITION_UNAVAILABLE:
+    case error.POSITION_UNAVAILABLE:
       return 'Informações de localização estão indisponíveis.'
-    case erro.TIMEOUT:
+    case error.TIMEOUT:
       return 'Tempo limite expirado para obter a localização.'
-    case erro.UNKNOWN_ERROR:
+    case error.UNKNOWN_ERROR:
       return 'Ocorreu um erro desconhecido ao obter a localização.'
     default:
-      return 'Erro ao obter a localização.'
+      return 'Geolocalização não é suportada pelo seu navegador.'
   }
 }
