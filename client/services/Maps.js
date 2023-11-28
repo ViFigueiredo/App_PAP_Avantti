@@ -15,7 +15,7 @@ const criarMapa = async (lat, lng, apiKey) => {
 
   const options = {
     center: { lat, lng },
-    zoom: 18
+    zoom: 17
   }
 
   loader.load()
