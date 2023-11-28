@@ -1,14 +1,9 @@
-<script setup>
-const username = ''
-const password = ''
-
-const login = () => alert('Login realizado com sucesso!')
-</script>
-
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-gray-100">
-    <form class="bg-white p-8 rounded-lg shadow-md max-w-md w-full" @submit.prevent="login">
-      <img src="@/assets/img/jnx_title_logo.png" alt="jnx_title_logo" class="p-10">
+  <div class="flex items-center justify-center min-h-screen bg-gray-100 overflow-auto">
+    <form class="flex flex-col align-center justify-center bg-white p-8 rounded-lg shadow-md max-w-md" @submit.prevent="login">
+      <div class="w-full flex justify-center align-center mb-6">
+        <img src="@/assets/img/jnx_title_logo.png" alt="jnx_title_logo" class="px-10 w-80">
+      </div>
       <h2 class="text-3xl font-extrabold mb-6 text-center text-gray-800">
         JNX - Entrar
       </h2>
@@ -21,7 +16,7 @@ const login = () => alert('Login realizado com sucesso!')
           id="username"
           v-model="username"
           type="text"
-          class="mt-1 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
           required
         >
       </div>
@@ -31,7 +26,7 @@ const login = () => alert('Login realizado com sucesso!')
           id="password"
           v-model="password"
           type="password"
-          class="mt-1 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
           required
         >
       </div>
@@ -46,3 +41,10 @@ const login = () => alert('Login realizado com sucesso!')
     </form>
   </div>
 </template>
+
+<script setup>
+const username = ''
+const password = ''
+
+const login = () => alert('Login realizado com sucesso!')
+</script>
