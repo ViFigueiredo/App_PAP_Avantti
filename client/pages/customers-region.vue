@@ -16,14 +16,14 @@
       </div>
 
       <div v-if="showCoords" class="absolute flex justify-center align-center mt-5 px-10 space-x-10 text-center w-screen ">
-        <div class="flex flex-col space-y-6 w-1/3">
+        <div class="flex flex-col space-y-6 w-2/3">
           <div id="map" class="h-80 w-auto relative overflow-x-auto shadow-md sm:rounded-lg"></div>
 
           <div>
             <p v-if="!coordsStatus" class="">
               Latitude: {{ localizacao.latitude }} <br>
               Longitude: {{ localizacao.longitude }} <br>
-              <!-- Endereço: {{ endereco }} -->
+              Endereço: {{ endereco }}
             </p>
           </div>
 
@@ -63,7 +63,7 @@
                 <td class="px-6 py-4">
                   {{ empresa.status }}
                 </td>
-                <td class="flex space-x-3 px-6 py-4">
+                <td class="text-center">
                   <button type="button">
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
                     <span class="material-symbols-outlined">
@@ -84,69 +84,20 @@
 import { ref, onMounted } from 'vue'
 import { getLocation } from '@/services/Geolocation'
 import { inicializarMapa } from '@/services/Maps'
+import { converterCoordenadas } from '@/services/Address'
+import { Empresas } from '@/services/Empresas'
 
 const runtimeConfig = useRuntimeConfig()
 const apiKey = runtimeConfig.public.GOOGLE_MAPS_KEY
 const localizacao = ref(null)
+const endereco = ref(null)
 const coordsStatus = ref(false)
 const showCoords = ref(false)
 const showFingerprint = ref(false)
 const checkStatus = false
+const empresas = Empresas()
 
-const empresas = {
-  empresa1: {
-    nome: 'Avantti Consultoria',
-    endereco: 'Rua José Paraíso, 58 - Boa Viagem',
-    status: 'Disponível'
-  },
-  empresa2: {
-    nome: 'Shopping Recife',
-    endereco: 'Av. Sofia Neves, 13 - Tancredo Neves',
-    status: 'Em negociação'
-  },
-  empresa3: {
-    nome: 'Dona Lindu',
-    endereco: 'Av. Mascarenhas de Morais, 145 - Boa Viagem',
-    status: 'Disponível'
-  },
-  empresa4: {
-    nome: 'Dona Lindu',
-    endereco: 'Av. Mascarenhas de Morais, 145 - Boa Viagem',
-    status: 'Disponível'
-  },
-  empresa5: {
-    nome: 'Dona Lindu',
-    endereco: 'Av. Mascarenhas de Morais, 145 - Boa Viagem',
-    status: 'Disponível'
-  },
-  empresa6: {
-    nome: 'Dona Lindu',
-    endereco: 'Av. Mascarenhas de Morais, 145 - Boa Viagem',
-    status: 'Disponível'
-  },
-  empresa7: {
-    nome: 'Dona Lindu',
-    endereco: 'Av. Mascarenhas de Morais, 145 - Boa Viagem',
-    status: 'Disponível'
-  },
-  empresa8: {
-    nome: 'Dona Lindu',
-    endereco: 'Av. Mascarenhas de Morais, 145 - Boa Viagem',
-    status: 'Disponível'
-  },
-  empresa9: {
-    nome: 'Dona Lindu',
-    endereco: 'Av. Mascarenhas de Morais, 145 - Boa Viagem',
-    status: 'Disponível'
-  },
-  empresa10: {
-    nome: 'Dona Lindu',
-    endereco: 'Av. Mascarenhas de Morais, 145 - Boa Viagem',
-    status: 'Disponível'
-  }
-}
-
-onMounted(() => {
+onMounted(async () => {
   const checkIn = JSON.parse(localStorage.getItem('locationMark')) || {}
 
   if (Object.keys(checkIn).length > 0) {
@@ -154,7 +105,8 @@ onMounted(() => {
     coordsStatus.value = checkIn.coordsStatus || false
     showFingerprint.value = checkIn.showFingerprint || false
     localizacao.value = checkIn.localizacao || null
-    inicializarMapa(localizacao.value.latitude, localizacao.value.longitude, apiKey)
+    endereco.value = await converterCoordenadas(localizacao.value.latitude, localizacao.value.longitude, apiKey)
+    inicializarMapa(endereco.value, localizacao.value.latitude, localizacao.value.longitude, apiKey)
   }
 })
 
@@ -162,9 +114,7 @@ const locationMarkStart = async () => {
   localStorage.removeItem('locationMark')
   const coords = await getLocation()
 
-  if (coords.err) {
-    return alert(coords.errorMsg)
-  }
+  if (coords.err) { return alert(coords.errorMsg) }
 
   showCoords.value = true
   coordsStatus.value = coords.err
@@ -172,6 +122,7 @@ const locationMarkStart = async () => {
   localizacao.value = coords.location
 
   if (localizacao.value) {
+    endereco.value = await converterCoordenadas(localizacao.value.latitude, localizacao.value.longitude, apiKey)
     inicializarMapa(localizacao.value.latitude, localizacao.value.longitude, apiKey)
   }
 
@@ -180,7 +131,8 @@ const locationMarkStart = async () => {
     showCoords: showCoords.value,
     coordsStatus: coordsStatus.value,
     showFingerprint: showFingerprint.value,
-    localizacao: localizacao.value
+    localizacao: localizacao.value,
+    endereco: endereco.value
   }
 
   localStorage.setItem('locationMark', JSON.stringify(checkInData))
@@ -191,11 +143,3 @@ const locationMarkSEnd = () => {
   location.reload()
 }
 </script>
-
-<style scoped>
-/* .table-container thead th {
-  position: sticky;
-  top: 0;
-  background-color: #f8f9fa;
-} */
-</style>
