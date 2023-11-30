@@ -5,7 +5,9 @@ import { Empresas } from '@/services/Empresas'
 
 export const inicializarMapa = async (lat, lng, apiKey) => {
   const map = await criarMapa(lat, lng, apiKey)
-  adicionarInfoWindow(adicionarMarker(map, lat, lng), map)
+  const iconPath = 'https://res.cloudinary.com/dkwnozyux/image/upload/v1701345220/location_blue.png'
+  const textIcon = '<h2> Avantti Consultoria</h2>'
+  adicionarInfoWindow(adicionarMarker(map, lat, lng, iconPath), map, textIcon)
 
   const objEmpresas = Empresas()
   for (const empresa in objEmpresas) {
@@ -14,8 +16,9 @@ export const inicializarMapa = async (lat, lng, apiKey) => {
       const endereco = detalhes.endereco
       await geocodeAddress(endereco, apiKey)
         .then((coordenadas) => {
-          console.log(coordenadas)
-          adicionarInfoWindow(adicionarMarker(map, coordenadas.lat, coordenadas.lng), map)
+          const iconText = detalhes.nome
+          const iconPath = 'https://res.cloudinary.com/dkwnozyux/image/upload/v1700684417/location_red.png'
+          adicionarInfoWindow(adicionarMarker(map, coordenadas.lat, coordenadas.lng, iconPath), map, iconText)
         })
         .catch((error) => {
           console.log(`Não foi possível obter coordenadas para o endereço ${endereco.value}. Erro: ${error}`)
@@ -41,20 +44,24 @@ const criarMapa = async (lat, lng, apiKey) => {
   return new Map(document.getElementById('map'), options)
 }
 
-const adicionarMarker = (map, lat, lng) => {
+const adicionarMarker = (map, lat, lng, iconPath) => {
   return new google.maps.Marker({
     position: { lat, lng },
     map,
-    icon: 'https://res.cloudinary.com/dkwnozyux/image/upload/v1700684417/placeholder_zrrlht.png'
+    icon: iconPath
   })
 }
 
-const adicionarInfoWindow = (marker, map) => {
+const adicionarInfoWindow = (marker, map, text) => {
   const detailWindow = new google.maps.InfoWindow({
-    content: '<h2> Avantti Consultoria</h2>'
+    content: text
   })
 
   marker.addListener('mouseover', () => {
     detailWindow.open(map, marker)
+  })
+
+  marker.addListener('mouseout', () => {
+    detailWindow.close()
   })
 }

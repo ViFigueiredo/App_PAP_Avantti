@@ -1,5 +1,5 @@
 <template>
-  <nav class="relative bg-white border-gray-200 dark:bg-gray-900 w-full absolute z-10">
+  <nav class="bg-white border-gray-200 dark:bg-gray-900 w-full">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="@/assets/img/jnx_logo.png" class="jnx-logo h-10" alt="">
@@ -7,7 +7,7 @@
       </a>
 
       <div class="nav-wrapper flex">
-        <div id="navbar-user" class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 mr-10">
+        <div id="navbar-user" class="items-center justify-between hidden w-full lg:flex md:w-auto md:order-1 mr-10">
           <NavLinks />
         </div>
 

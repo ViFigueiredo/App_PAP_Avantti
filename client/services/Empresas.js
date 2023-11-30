@@ -1,10 +1,5 @@
 export const Empresas = () => {
   return {
-    empresa1: {
-      nome: 'Avantti Consultoria',
-      endereco: 'R. José Paraíso, 58 - Boa Viagem, Recife - PE, 51030-390',
-      status: 'Disponível'
-    },
     empresa2: {
       nome: 'Espetinho do Seu Daniel',
       endereco: 'Av. Visc. de Jequitinhonha, 1774-1944 - Boa Viagem, Recife - PE, 51021-190',
