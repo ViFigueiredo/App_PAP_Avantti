@@ -28,15 +28,15 @@
           </div>
         </div>
 
-        <div class="flex w-full flex mt-5">
-          <div class="flex w-full w-1/3">
+        <div class="flex w-full space-x-20 flex mt-5">
+          <div class="flex w-4/5">
             <h1 class="underline font-bold text-gray-500">
               Dados de localização:
             </h1>
           </div>
 
           <div class="flex w-full justify-between">
-            <h1 class="underline font-bold pl-[350px] text-gray-500">
+            <h1 class="underline font-bold text-gray-500">
               Empresas na região:
             </h1>
 
